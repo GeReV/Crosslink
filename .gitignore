@@ -1,3 +1,5 @@
+*.css
+
 .project
 npm-debug.log
 

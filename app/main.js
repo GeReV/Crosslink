@@ -12,7 +12,9 @@ require([
   
   "jqueryui",
   
-  "templates"
+  "templates",
+  
+  "multiregion"
 ],
 
 function(namespace, $, Backbone, Marionette, Handlebars, Common) {
@@ -32,7 +34,10 @@ function(namespace, $, Backbone, Marionette, Handlebars, Common) {
     template: 'main',
 
     regions: {
-      desktop: '#desktop',
+      desktop: {
+        selector: '#desktop',
+        regionType: Marionette.MultiRegion
+      },
       taskbar: 'footer'
     }
   });

@@ -11,6 +11,7 @@ define([
   "modules/terminal",
 
   // Plugins
+  "jqueryui"
 ],
 
 function(namespace, $, Backbone, Marionette, FileSystem, Terminal) {
@@ -31,7 +32,8 @@ function(namespace, $, Backbone, Marionette, FileSystem, Terminal) {
       
       terminal: function() {
         console.log('Terminal');
-        //namespace.app.layout.view('#desktop', new Common.Views.TerminalWindow, true).render();
+        
+        namespace.app.layout.desktop.attachView(new Common.Views.TerminalWindow());
       }
     });
   
@@ -47,6 +49,10 @@ function(namespace, $, Backbone, Marionette, FileSystem, Terminal) {
         return { title: this.title };
       },
       
+      events: {
+        'click .close': 'close'
+      },
+      
       ui: {
         content: '.content'
       },
@@ -54,14 +60,14 @@ function(namespace, $, Backbone, Marionette, FileSystem, Terminal) {
       onShow: function() {
           var app = namespace.app;
           
-          this.$el.resizable({
+          $(this.el).resizable({
             containment: '#desktop',
             handles: 'all',
             minWidth: 320,
             minHeight: 150
           });
           
-          this.$el.draggable({
+          $(this.el).draggable({
             handle: 'header',
             containment: '#main',
             snap: '.window, #desktop',

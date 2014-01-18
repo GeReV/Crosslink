@@ -30,6 +30,22 @@ app.use(scss.middleware({
   outputStyle: 'compressed'
 }));
 
+app.configure(function(){
+  var dir     = __dirname + "/app/templates"
+      output  = __dirname + "/public/templates.js",
+      hbsPrecompiler = require('handlebars-precompiler');
+  
+  hbsPrecompiler.watchDir(dir, output, ['handlebars', 'hbs']);
+  
+  hbsPrecompiler.do({
+    templates: [dir],
+    output: output,
+    fileRegex: /\.handlebars$|\.hbs$/i,
+    min: true
+  });
+  
+});
+
 app.use(express.static(__dirname));
 
 server.listen(port);

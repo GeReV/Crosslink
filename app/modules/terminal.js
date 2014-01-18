@@ -1,14 +1,13 @@
 define([
   // Libs
   "jquery",
-  "use!underscore",
-  "use!backbone",
+  "underscore",
 
   // Modules
   "modules/commands"
 
   // Plugins
-], function($, _, Backbone, TerminalCommands) {
+], function($, _, TerminalCommands) {
 
   var Terminal = function(el) {
     this.el = el;

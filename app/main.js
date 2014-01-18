@@ -1,92 +1,71 @@
 require([
   "namespace",
-
+  
   // Libs
   "jquery",
-  "use!backbone",
+  "backbone",
+  "marionette",
+  "handlebars",
 
   // Modules
   "modules/application",
   
-  "use!jqueryui"
+  "jqueryui",
+  
+  "templates"
 ],
 
-function(namespace, $, Backbone, Application) {
-
-  Backbone.LayoutManager.configure({
-    fetch: function(path) {
-      path = path + ".html";
-
-      var done = this.async();
-      var JST = window.JST = window.JST || {};
-
-      // Should be an instant synchronous way of getting the template, if it
-      // exists in the JST object.
-      if (JST[path]) {
-        return done(JST[path]);
-      }
-
-      // Fetch it asynchronously if not available from JST
-      $.get(path, function(contents) {
-        var tmpl = _.template(contents);
-
-        JST[path] = tmpl;
-        done(tmpl);
-      });
-    },
-    
-    render: function(template, context) {
-      return template(context);
-    }
-  });
+function(namespace, $, Backbone, Marionette, Handlebars, Application) {
+  
+  Backbone.Marionette.TemplateCache.prototype.loadTemplate = function(template) {
+    return Handlebars.templates[template];
+  };
+  
+  Backbone.Marionette.TemplateCache.prototype.compileTemplate = function(template) {
+    return template;
+  };
 
   // Shorthand the application namespace
   var app = namespace.app;
   
-  app.covers = (function() {
-    var holder = $('.covers');
+  app.Layout = Backbone.Marionette.Layout.extend({
+    template: 'main',
+
+    regions: {
+      desktop: '#desktop',
+      taskbar: 'footer'
+    }
+  });
+  
+  app.addRegions({
+    main: '#main'
+  });
+  
+  app.addInitializer(function() {
+
+    app.layout = new app.Layout();
+
+    app.main.show(app.layout);
     
-    return {
-      full: holder.find('.full'),
-      left: holder.find('.left'),
-      right: holder.find('.right'),
-      
-      show: function(el) {
-        holder.addClass('visible').children().removeClass('visible');
-        el.addClass('visible');
-      },
-      hide: function(el) {
-        holder.removeClass('visible');
-        
-        if (el) {
-          el.removeClass('visible');
-        }else{
-          holder.children().removeClass('visible');
-        }
-      }
-    };
-  })();
+  });
+  
+  app.addInitializer(function() {
+    var Application = app.module('Application');
+    
+    app.layout.taskbar.show(new Application.Views.Menu());
+  });
+
 
   // Treat the jQuery ready function as the entry point to the application.
   // Inside this function, kick-off all initialization, everything up to this
   // point should be definitions.
   $(function() {
     
-    var main = namespace.app.layout = new Backbone.LayoutManager({
-      template: 'app/templates/main',
-    });
+    app.start();
     
-    main.$el.appendTo('#main');
-    
-    main.render();
-    
-    var win = new Application.Views.TerminalWindow();
+    /*var win = new Application.Views.TerminalWindow();
       
-    main.view('#desktop', win, true);
-    
-    main.view('footer', new Application.Views.Menu);
-    
-    main.render();
+    main.view('#desktop', win, true);*/
   });
 
 });

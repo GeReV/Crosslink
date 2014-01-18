@@ -1,5 +1,5 @@
 ﻿define([
-  "use!underscore",
+  "underscore",
   "modules/commands"
 ], function(_, TerminalCommands) {
     
@@ -103,7 +103,7 @@
         cd: {
             man: 'Change path.',
             fn: function (terminal, args, out) {
-                var result = fileSystem.cd(args)
+                var result = fileSystem.cd(args);
 
                 terminal.updatePrompt(fileSystem.join());
 

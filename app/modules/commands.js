@@ -1,5 +1,5 @@
 define([
-  "use!underscore"
+  "underscore"
 ],
 function(_) {
   var TerminalCommands = {

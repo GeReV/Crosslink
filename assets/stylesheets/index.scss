@@ -151,6 +151,7 @@ footer menu button:active {
 	-webkit-box-sizing: border-box;
 	min-height: 150px;
 	height: 100%;
+	overflow: hidden;
 }
 .window.full,
 .window.left,
@@ -188,6 +189,14 @@ footer menu button:active {
 }
 .terminal .machine {
 	color: #5182ff;
+}
+
+.map {
+  width: 700px;
+  
+  .content {
+    height: 400px;
+  }
 }
 
 .full {

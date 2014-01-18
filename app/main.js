@@ -9,6 +9,7 @@ require([
 
   // Modules
   "modules/common",
+  "modules/map",
   
   "jqueryui",
   
@@ -58,6 +59,8 @@ function(namespace, $, Backbone, Marionette, Handlebars, Common) {
     var Common = app.module('Common');
     
     app.layout.taskbar.show(new Common.Views.Menu());
+    
+    app.layout.desktop.show(new Common.Views.Map());
   });
 
 

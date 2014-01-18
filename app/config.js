@@ -13,6 +13,9 @@ require.config({
     backbone: "../assets/javascript/libs/backbone",
     marionette: "../assets/javascript/libs/backbone.marionette",
     handlebars: "../assets/javascript/libs/handlebars",
+    d3: "../assets/javascript/libs/d3.v3",
+    topojson: "../assets/javascript/libs/topojson",
+    planetary: "../assets/javascript/libs/planetaryjs",
     templates: "../public/templates"
   },
 
@@ -37,6 +40,10 @@ require.config({
     
     handlebars: {
       exports: "Handlebars"
+    },
+    
+    planetary: {
+      deps: ["d3"]
     },
     
     templates: {

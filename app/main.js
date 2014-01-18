@@ -8,14 +8,14 @@ require([
   "handlebars",
 
   // Modules
-  "modules/application",
+  "modules/common",
   
   "jqueryui",
   
   "templates"
 ],
 
-function(namespace, $, Backbone, Marionette, Handlebars, Application) {
+function(namespace, $, Backbone, Marionette, Handlebars, Common) {
   
   Backbone.Marionette.TemplateCache.prototype.loadTemplate = function(template) {
     return Handlebars.templates[template];
@@ -50,9 +50,9 @@ function(namespace, $, Backbone, Marionette, Handlebars, Application) {
   });
   
   app.addInitializer(function() {
-    var Application = app.module('Application');
+    var Common = app.module('Common');
     
-    app.layout.taskbar.show(new Application.Views.Menu());
+    app.layout.taskbar.show(new Common.Views.Menu());
   });
 
 

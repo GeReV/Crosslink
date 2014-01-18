@@ -16,11 +16,11 @@ define([
 function(namespace, $, Backbone, Marionette, FileSystem, Terminal) {
 
   // Create a new module
-  var Application = namespace.app.module("Application", function(Application) {
+  var Common = namespace.app.module("Common", function(Common) {
     
-    Application.Views = {};
+    Common.Views = {};
     
-    Application.Views.Menu = Marionette.ItemView.extend({
+    Common.Views.Menu = Marionette.ItemView.extend({
       template: 'menu',
   
       tagName: 'menu',
@@ -31,12 +31,12 @@ function(namespace, $, Backbone, Marionette, FileSystem, Terminal) {
       
       terminal: function() {
         console.log('Terminal');
-        //namespace.app.layout.view('#desktop', new Application.Views.TerminalWindow, true).render();
+        //namespace.app.layout.view('#desktop', new Common.Views.TerminalWindow, true).render();
       }
     });
   
     // This will fetch the tutorial template and render it.
-    Application.Views.Window = Marionette.ItemView.extend({
+    Common.Views.Window = Marionette.ItemView.extend({
       template: "window",
       
       className: 'window',
@@ -110,13 +110,13 @@ function(namespace, $, Backbone, Marionette, FileSystem, Terminal) {
       }
     });
     
-    Application.Views.TerminalWindow = Application.Views.Window.extend({
+    Common.Views.TerminalWindow = Common.Views.Window.extend({
       className: 'window terminal ui-widget-content',
       
       title: 'Terminal',
       
       onShow: function(manage) {
-        Application.Views.Window.prototype.onShow.call(this);
+        Common.Views.Window.prototype.onShow.call(this);
         
         
         this.terminal = new Terminal( this.ui.content.get(0) );
@@ -125,6 +125,6 @@ function(namespace, $, Backbone, Marionette, FileSystem, Terminal) {
   });
 
   // Required, return the module for AMD compliance
-  return Application;
+  return Common;
 
 });

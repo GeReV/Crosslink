@@ -16,6 +16,7 @@ require.config({
     d3: "../assets/javascript/libs/d3.v3",
     topojson: "../assets/javascript/libs/topojson",
     planetary: "../assets/javascript/libs/planetaryjs",
+    "planetaryjs.nodes": "../assets/javascript/libs/planetaryjs.nodes",
     templates: "../public/templates"
   },
 

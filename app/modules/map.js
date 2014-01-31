@@ -6,7 +6,8 @@ define([
   "marionette",
   "d3",
   "topojson",
-  "planetary"
+  "planetary",
+  "planetaryjs.nodes"
 ],
 
 function(namespace, Backbone, Marionette, d3, topojson, planetaryjs) {
@@ -46,9 +47,11 @@ function(namespace, Backbone, Marionette, d3, topojson, planetaryjs) {
             this.plugins.autorotate.resume();
           }
         }));
+        
+        globe.loadPlugin(planetaryjs.plugins.nodes());
+        
         // Set up the globe's initial scale, offset, and rotation.
         globe.projection.scale(350).translate([350, 175]).rotate([0, -10, 0]);
-      
       
         var canvas = this.ui.map.get(0);
         // Special code to handle high-density displays (e.g. retina, some phones)
@@ -61,6 +64,15 @@ function(namespace, Backbone, Marionette, d3, topojson, planetaryjs) {
         }
         // Draw that globe!
         globe.draw(canvas);
+        
+        for (var i=0; i<10; i++) {
+          var lat = Math.random() * 170 - 85;
+          var lng = Math.random() * 360 - 180;
+          
+          globe.plugins.nodes.add(lng, lat, {
+            edges: 3 + Math.random() * 3
+          });
+        }
       
         // This plugin will automatically rotate the globe around its vertical
         // axis a configured number of degrees every second.
